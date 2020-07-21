@@ -8,18 +8,25 @@ const Invoice = styled.div`
 `;
 
 const EditButton = styled.button`
- 
+  width: 100px;
+  background-color: #d3d3d3;
+  border-radius: 3px;
+  display: inline-block;
+  margin-left: 1000px;
+  margin-bottom: 15px;
+  height: 30px;
+  text-transform: uppercase;
 `;
 
 const InvoiceItem = (props) => {
-  const {name, email, due, total} = props
+  const {name, email, due, total,id} = props
   return (
     <Invoice>
       <p>Name: {name}</p>
       <p>Email: {email}</p>
       <p>Due: {due}</p>
       <span>Total: {total}</span>
-    <button>Edit</button>
+    <EditButton onClick={() => console.log("I am editing",id)}>Edit</EditButton>
     </Invoice>
     )
 }

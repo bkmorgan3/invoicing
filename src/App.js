@@ -8,6 +8,7 @@ const Container = styled.div`
   margin: 10px 15px;
   font-family: sans-serif;
   font-size: 24px;
+  max-width: 1300px;
 `;
 
 const CreateInvoiceButton = styled.button`
@@ -21,13 +22,14 @@ const CreateInvoiceButton = styled.button`
   font-size: 14px;
   letter-spacing: 1px;
   display: inline-block;
-  margin-left: 1200px;
+  margin-left: 1130px;
+  border: 1px solid grey; 
 `;
 
 const pendingInvoices = [
   {id: 1, name: 'Justin Fox', email: 'foxrate@yahoo.com', due: '11/20/2020', total: '$10.00'},
   {id: 2, name: 'Scott Fallout', email: 'dcf@gmail.com', due: '08/10/2020', total: '$25.00'},
-  {id: 3, name: 'Jim D', email: 'DJims@gmail.com', due: '12/20/2020', total: '$100.00'}
+  {id: 3, name: 'Jim D', email: 'DJims@gmail.com', due: '12/20/2020', total: '$44.00'}
 ]
 
 const App = () => {
@@ -36,7 +38,7 @@ const App = () => {
   return (
     <Container>
       <Header />
-      <CreateInvoiceButton> Create Invoice</CreateInvoiceButton>
+      <CreateInvoiceButton onClick={() => console.log("making a new one")}> Create Invoice</CreateInvoiceButton>
       <InvoiceContainer invoices={invoices} />
     </Container>
     )

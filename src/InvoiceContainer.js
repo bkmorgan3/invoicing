@@ -10,6 +10,7 @@ const InvoiceContainer = (props) => (
         email={i.email} 
         due={i.due} 
         total={i.total} 
+        id={i.id}
         />
     ))}
   </div>
