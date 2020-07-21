@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import Header from './Header';
 import InvoiceContainer from './InvoiceContainer';
+import NewInvoiceForm from './NewInvoiceForm';
 
 const Container = styled.div`
   height: 100vh;
@@ -34,13 +35,22 @@ const pendingInvoices = [
 
 const App = () => {
   const [invoices, setInvoices] = useState(pendingInvoices)
+  const [isFormDisplayed, setIsFormDisplayed] = useState(false)
 
+  const addInvoice = (invoice) => {
+    invoice.id = invoices.length + 1
+    setInvoices(...invoices, invoice)
+  }
+  console.log("hello",isFormDisplayed)
   return (
     <Container>
       <Header />
-      <CreateInvoiceButton onClick={() => console.log("making a new one")}> Create Invoice</CreateInvoiceButton>
-      <InvoiceContainer invoices={invoices} />
-    </Container>
+      <CreateInvoiceButton onClick={() => setIsFormDisplayed(!isFormDisplayed) }> {isFormDisplayed ? 'Back' : 'Create Invoice'}</CreateInvoiceButton> 
+        {isFormDisplayed ? 
+          <NewInvoiceForm setIsFormDisplayed={setIsFormDisplayed} addInvoice={addInvoice} /> :    
+          <InvoiceContainer invoices={invoices} />
+          }
+      </Container>
     )
   
 }

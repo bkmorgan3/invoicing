@@ -1,10 +1,20 @@
 import React, {useState} from 'react';
+import styled from 'styled-components';
+
+const Form = styled.form`
+  height: 500px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid green;
+`;
 
 const NewInvoiceForm = props => {
   const defaultFormState = {id: null, name: '', email: '', due: '', description: '', amount: ''}
   const [invoice, setInvoice] = useState(defaultFormState)
+  console.log(props)
   return (
-    <form>
+    <Form>
       <label htmlFor="name">Name</label>
       <input type="text" name="name"/>
       <label htmlFor="email">Email</label>
@@ -17,9 +27,9 @@ const NewInvoiceForm = props => {
       <input type="text" name="amount" />
       <button>+</button>
       Total:  $0.00
-      <button>Back</button>
-      <button>Create</button>
-    </form>
+      <button onClick={() => props.setIsFormDisplayed(false)}>Back</button>
+      <button type="submit">Create</button>
+    </Form>
   )
 }
 
