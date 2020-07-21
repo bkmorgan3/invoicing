@@ -7,14 +7,21 @@ const Container = styled.div`
   height: 100vh;
   margin: 10px 15px;
   font-family: sans-serif;
+  font-size: 24px;
 `;
 
 const CreateInvoiceButton = styled.button`
-  width: 200px;
+  width: 155px;
   text-transform: uppercase;
   margin-top: 30px;
   height: 40px;
   background-color: #b9deed;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-left: 1200px;
 `;
 
 const pendingInvoices = [

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Invoice = styled.div`
   border: 1px solid black;
   margin: 15px;
-  padding: 30px;
+  /* padding: 30px; */
 `;
 
 const EditButton = styled.button`
