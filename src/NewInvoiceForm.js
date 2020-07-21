@@ -18,8 +18,10 @@ const Field = styled.div`
 `;
 
 const InputField = styled.input`
-  width: 180px;
+  width: 380px;
   height: 30px;
+  border: 1px solid #444;
+  border-radius: 3px;
 `;
 
 const InternalDiv = styled.div`
@@ -33,9 +35,23 @@ const InternalDiv = styled.div`
 const DescInput = styled.input`
   width:210px;
   height: 30px;
+  border-radius: 3px;
+  border: 1px solid #555;
 `;
 
 const InternalLabel = styled.label`
+  margin-bottom: 20px;
+`;
+
+const AmountInput = styled.input`
+  width: 60px;
+  margin-left: 250px;
+  height: 30px;
+  border-radius: 3px;
+`;
+
+const AmountLabel = styled.label`
+  margin-left: 250px;
   margin-bottom: 20px;
 `;
 
@@ -67,8 +83,8 @@ const NewInvoiceForm = props => {
         </InternalDiv>
 
         <InternalDiv>
-          <InternalLabel htmlFor="amount">Amount</InternalLabel>
-          <input type="text" name="amount" />
+          <AmountLabel htmlFor="amount">Amount</AmountLabel>
+          <AmountInput type="text" name="amount" />
         </InternalDiv>
       </Field>
 
