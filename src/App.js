@@ -41,7 +41,7 @@ const App = () => {
     invoice.id = invoices.length + 1
     setInvoices(...invoices, invoice)
   }
-  console.log("hello",isFormDisplayed)
+  
   return (
     <Container>
       <Header />

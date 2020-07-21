@@ -12,7 +12,6 @@ const Form = styled.form`
 const NewInvoiceForm = props => {
   const defaultFormState = {id: null, name: '', email: '', due: '', description: '', amount: ''}
   const [invoice, setInvoice] = useState(defaultFormState)
-  console.log(props)
   return (
     <Form>
       <label htmlFor="name">Name</label>
