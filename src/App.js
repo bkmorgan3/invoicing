@@ -5,11 +5,12 @@ import InvoiceContainer from './InvoiceContainer';
 import NewInvoiceForm from './NewInvoiceForm';
 
 const Container = styled.div`
-  height: 100vh;
+  height: 90vh;
   margin: 10px 15px;
   font-family: sans-serif;
   font-size: 24px;
   max-width: 1300px;
+  border: 1px solid #555;
 `;
 
 const CreateInvoiceButton = styled.button`

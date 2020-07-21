@@ -6,7 +6,20 @@ const Form = styled.form`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  border: 2px solid green;
+  /* border: 2px solid green; */
+`;
+
+const Field = styled.div`
+  /* border: 1px solid red; */
+  display:flex;
+  justify-content: space-around;
+  margin-top: 0;
+  margin-bottom: 1rem;
+`;
+
+const InputField = styled.input`
+  width: 180px;
+  height: 30px;
 `;
 
 const NewInvoiceForm = props => {
@@ -14,20 +27,21 @@ const NewInvoiceForm = props => {
   const [invoice, setInvoice] = useState(defaultFormState)
   return (
     <Form>
-      <div >
+
+      <Field >
         <label htmlFor="name">Name</label>
-        <input type="text" name="name"/>
-      </div>
-      <div>
+        <InputField placeholder="Name" type="text" name="name"/>
+      </Field>
 
+      <Field>
         <label htmlFor="email">Email</label>
-        <input type="text" name="email"/>
-      </div>
+        <InputField placeholder="Email" type="text" name="email"/>
+      </Field>
 
-      <div>
-        <label htmlFor="due">Due Date</label>
-        <input type="text" name="due"/>
-      </div>
+      <Field>
+        <label htmlFor="due">Due </label>
+        <InputField type="date" name="due"/>
+      </Field>
 
       <div>
         <label htmlFor="description">Description</label>
