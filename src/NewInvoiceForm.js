@@ -22,6 +22,23 @@ const InputField = styled.input`
   height: 30px;
 `;
 
+const InternalDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  /* border: 1px solid green; */
+  width: 30%;
+`;
+
+const DescInput = styled.input`
+  width:210px;
+  height: 30px;
+`;
+
+const InternalLabel = styled.label`
+  margin-bottom: 20px;
+`;
+
 const NewInvoiceForm = props => {
   const defaultFormState = {id: null, name: '', email: '', due: '', description: '', amount: ''}
   const [invoice, setInvoice] = useState(defaultFormState)
@@ -43,15 +60,17 @@ const NewInvoiceForm = props => {
         <InputField type="date" name="due"/>
       </Field>
 
-      <div>
-        <label htmlFor="description">Description</label>
-        <input type="text" name="description" />
-      </div>
+      <Field>
+        <InternalDiv>
+          <InternalLabel htmlFor="description">Description</InternalLabel>
+          <DescInput type="text" name="description" />
+        </InternalDiv>
 
-      <div>
-        <label htmlFor="amount">Amount</label>
-        <input type="text" name="amount" />
-      </div>
+        <InternalDiv>
+          <InternalLabel htmlFor="amount">Amount</InternalLabel>
+          <input type="text" name="amount" />
+        </InternalDiv>
+      </Field>
 
       <div>
         <button>+</button>
