@@ -6,15 +6,19 @@ const Form = styled.form`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  /* border: 2px solid green; */
 `;
 
 const Field = styled.div`
-  /* border: 1px solid red; */
   display:flex;
   justify-content: space-around;
   margin-top: 0;
   margin-bottom: 1rem;
+`;
+const AdditionalField = styled.div`
+  display:flex;
+  justify-content: space-around;
+  /* margin-top: 0; */
+  /* margin-bottom: 1rem; */
 `;
 
 const InputField = styled.input`
@@ -42,6 +46,9 @@ const DescInput = styled.input`
 const InternalLabel = styled.label`
   margin-bottom: 20px;
 `;
+const AdditionalLabel = styled.label`
+  margin-bottom: 20px;
+`;
 
 const AmountInput = styled.input`
   width: 60px;
@@ -63,19 +70,29 @@ const NewInvoiceForm = props => {
 
   const handleChange = e => {
     const {name, value} = e.target;
+    console.log(name, value)
   
 
     setInvoice({...invoice, [name]:value, total})
   }
 
+  const handleInputChange = (e,i) => {
+    console.log(e,i)
+    const values = [...fields]
+    values[i].value = e.target.value;
+    console.log(values)
+    setFields(values)
+  }
+
   const handleAdd = () => {
     const values = [...fields]
+    console.log(fields)
     values.push(({value: null}))
     setFields(values)
   }
   return (
     <Form onSubmit={e => {
-      // if there are missing values rteurn early, but a warning would be nice.
+      // if there are missing values return early, but a warning would be nice.
       // if (!invoice.name || !invoice.email || !invoice.due || !invoice.total) return
       e.preventDefault();
       props.addInvoice(invoice)
@@ -94,7 +111,7 @@ const NewInvoiceForm = props => {
 
       <Field>
         <label htmlFor="due">Due </label>
-        <InputField type="date" name="due" value={invoice.value} onChange={handleChange} />
+        <InputField type="date" name="due" value={invoice.due} onChange={handleChange} />
       </Field>
 
       <Field>
@@ -109,8 +126,27 @@ const NewInvoiceForm = props => {
         </InternalDiv>
       </Field>
 
-      <div >
-        <button type="button" onClick={() => handleAdd()}>+</button>
+      <div  >
+        {/* <label>Add More fields</label>  */}
+        <button type="button" onClick={() => handleAdd()}>More fields</button>
+       
+        {fields.map((field, i) => {
+          return (
+            <div key={`${i}-${field}`}>
+              <AdditionalField>
+                <InternalDiv>
+                  {/* <InternalLabel htmlFor="description">Description</InternalLabel> */}
+                  <DescInput placeholder="description" type="text" name={`description${i}`} value={invoice.description} onChange={handleInputChange} />
+                </InternalDiv>
+
+                <InternalDiv>
+                  {/* <AmountLabel htmlFor="amount">Amount</AmountLabel> */}
+                  <AmountInput placeholder="amount" type="number" name={`amount${i}`} />
+                </InternalDiv>
+              </AdditionalField>
+            </div>
+          )
+        })}
       </div>
       
       <div>
