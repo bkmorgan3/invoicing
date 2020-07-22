@@ -25,7 +25,7 @@ const InvoiceItem = (props) => {
       <p>Name: {name}</p>
       <p>Email: {email}</p>
       <p>Due: {due}</p>
-      <span>Total: {total}</span>
+      <span>Total: $ {total}</span>
     <EditButton onClick={() => console.log("I am editing",id)}>Edit</EditButton>
     </Invoice>
     )

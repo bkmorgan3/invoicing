@@ -29,9 +29,9 @@ const CreateInvoiceButton = styled.button`
 `;
 
 const pendingInvoices = [
-  {id: 1, name: 'Justin Fox', email: 'foxrate@yahoo.com', due: '11/20/2020', total: '$10.00'},
-  {id: 2, name: 'Scott Fallout', email: 'dcf@gmail.com', due: '08/10/2020', total: '$25.00'},
-  {id: 3, name: 'Jim D', email: 'DJims@gmail.com', due: '12/20/2020', total: '$44.00'}
+  {id: 1, name: 'Justin Fox', email: 'foxrate@yahoo.com', due: '11/20/2020', total: '10.00'},
+  {id: 2, name: 'Scott Fallout', email: 'dcf@gmail.com', due: '08/10/2020', total: '25.00'},
+  {id: 3, name: 'Jim D', email: 'DJims@gmail.com', due: '12/20/2020', total: '44.00'}
 ]
 
 const App = () => {
@@ -50,7 +50,7 @@ const App = () => {
       <Header />
       <CreateInvoiceButton onClick={() => setIsFormDisplayed(!isFormDisplayed) }> {isFormDisplayed ? 'Back' : 'Create Invoice'}</CreateInvoiceButton> 
         {isFormDisplayed ? 
-          <NewInvoiceForm addInvoice={addInvoice} setIsFormDisplayed={setIsFormDisplayed} addInvoice={addInvoice} /> :    
+          <NewInvoiceForm addInvoice={addInvoice} setIsFormDisplayed={setIsFormDisplayed} /> :    
           <InvoiceContainer invoices={invoices} />
           }
       </Container>

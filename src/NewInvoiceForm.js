@@ -56,16 +56,27 @@ const AmountLabel = styled.label`
 `;
 
 const NewInvoiceForm = props => {
-  const defaultFormState = {id: null, name: '', email: '', due: '', }
+  const defaultFormState = {id: null, name: '', email: '', due: '', total: ''}
   const [invoice, setInvoice] = useState(defaultFormState)
+  const [total, setTotal] = useState(0)
+  const [fields, setFields] = useState([])
 
   const handleChange = e => {
     const {name, value} = e.target;
+  
 
-    setInvoice({...invoice, [name]:value})
+    setInvoice({...invoice, [name]:value, total})
+  }
+
+  const handleAdd = () => {
+    const values = [...fields]
+    values.push(({value: null}))
+    setFields(values)
   }
   return (
     <Form onSubmit={e => {
+      // if there are missing values rteurn early, but a warning would be nice.
+      // if (!invoice.name || !invoice.email || !invoice.due || !invoice.total) return
       e.preventDefault();
       props.addInvoice(invoice)
       setInvoice(defaultFormState)
@@ -73,7 +84,7 @@ const NewInvoiceForm = props => {
 
       <Field >
         <label htmlFor="name">Name</label>
-        <InputField placeholder="Name" type="text" name="name"value={invoice.name} onChange={handleChange}/>
+        <InputField placeholder="Name" type="text" name="name" value={invoice.name} onChange={handleChange}/>
       </Field>
 
       <Field>
@@ -83,7 +94,7 @@ const NewInvoiceForm = props => {
 
       <Field>
         <label htmlFor="due">Due </label>
-        <InputField type="date" name="due"/>
+        <InputField type="date" name="due" value={invoice.value} onChange={handleChange} />
       </Field>
 
       <Field>
@@ -98,16 +109,16 @@ const NewInvoiceForm = props => {
         </InternalDiv>
       </Field>
 
-      <div>
-        <button>+</button>
+      <div >
+        <button type="button" onClick={() => handleAdd()}>+</button>
       </div>
       
       <div>
-       Total:  $0.00
+       Total:  $ {total}
       </div>
 
       <div>
-        <button onClick={() => props.setIsFormDisplayed(false)}>Back</button>
+        <button type="button" onClick={() => props.setIsFormDisplayed(false)}>Back</button>
       </div>
 
       <div>
