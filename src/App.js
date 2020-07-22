@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Header from './Header';
 import InvoiceContainer from './InvoiceContainer';
 import NewInvoiceForm from './NewInvoiceForm';
+import EditInvoiceForm from './EditInvoiceForm'
 
 const Container = styled.div`
   height: 100vh;
@@ -28,16 +29,34 @@ const CreateInvoiceButton = styled.button`
   border: 1px solid grey; 
 `;
 
-const pendingInvoices = [
-  {id: 1, name: 'Justin Fox', email: 'foxrate@yahoo.com', due: '11/20/2020', total: '10.00'},
-  {id: 2, name: 'Scott Fallout', email: 'dcf@gmail.com', due: '08/10/2020', total: '25.00'},
-  {id: 3, name: 'Jim D', email: 'DJims@gmail.com', due: '12/20/2020', total: '44.00'}
-]
 
 const App = () => {
+
+  const pendingInvoices = [
+    {id: 1, name: 'Justin Fox', email: 'foxrate@yahoo.com', due: '2020-10-20', total: '10.00'},
+    {id: 2, name: 'Scott Fallout', email: 'dcf@gmail.com', due: '2020-10-02', total: '25.00'},
+    {id: 3, name: 'Jim D', email: 'DJims@gmail.com', due: '2020-12-22', total: '44.00'}
+  ]
+
+  const initialFormState = {id: null, name: '', email: '', due: '', total: ''}
+
   const [invoices, setInvoices] = useState(pendingInvoices)
   const [isFormDisplayed, setIsFormDisplayed] = useState(false)
+  const [editing, setEditing] = useState(false)
+  const [currentInvoice, setCurrentInvoice] = useState(initialFormState)
+
+  const editInvoice = invoice => {
+    console.log("editing invoice",invoice)
+    setEditing(true)
+
+    setCurrentInvoice({id: invoice.id, name: invoice.name, email: invoice.email, due: invoice.due, amount: invoice.total})
+  }
   
+  const updateInvoice = (id, updatedInvoice) => {
+    setEditing(false)
+
+    setInvoices(invoices.map(invoice => invoice.id === id ? updatedInvoice : invoice))
+  }
 
   const addInvoice = (invoice) => {
     invoice.id = invoices.length + 1
@@ -49,10 +68,14 @@ const App = () => {
     <Container>
       <Header />
       <CreateInvoiceButton onClick={() => setIsFormDisplayed(!isFormDisplayed) }> {isFormDisplayed ? 'Back' : 'Create Invoice'}</CreateInvoiceButton> 
+       
         {isFormDisplayed ? 
           <NewInvoiceForm addInvoice={addInvoice} setIsFormDisplayed={setIsFormDisplayed} /> :    
-          <InvoiceContainer invoices={invoices} />
+          <InvoiceContainer editInvoice={editInvoice} invoices={invoices} />
           }
+          {editing ? 
+        <EditInvoiceForm currentInvoice={currentInvoice} setEditing={setEditing} /> :
+        ''}
       </Container>
     )
   

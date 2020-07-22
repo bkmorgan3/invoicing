@@ -19,14 +19,14 @@ const EditButton = styled.button`
 `;
 
 const InvoiceItem = (props) => {
-  const {name, email, due, total,id} = props
+  const {name, email, due, total, editInvoice} = props
   return (
     <Invoice>
       <p>Name: {name}</p>
       <p>Email: {email}</p>
       <p>Due: {due}</p>
       <span>Total: $ {total}</span>
-    <EditButton onClick={() => console.log("I am editing",id)}>Edit</EditButton>
+    <EditButton onClick={() => editInvoice(props) }>Edit</EditButton>
     </Invoice>
     )
 }

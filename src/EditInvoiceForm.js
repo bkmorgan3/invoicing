@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import AdditionalInputs from './AdditionalInputs'
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 
@@ -57,71 +56,56 @@ const AmountLabel = styled.label`
 `;
 
 // THE COMPONENT
-const NewInvoiceForm = props => {
-  const defaultFormState = {id: null, name: '', email: '', due: '', total: '', description: ''}
+const EditInvoiceForm = props => {
+  console.log("props in ditform", props)
+  const {name, email, due, id, amount} = props.currentInvoice
+
+  const defaultFormState = { id: null, name: '', email: '', due: '', total: '', description: '' }
   const [invoice, setInvoice] = useState(defaultFormState)
   const [total, setTotal] = useState(0)
 
-  const handleChange = e => {
-    const {name, value} = e.target;
-    console.log(name, value)
-  
-    setInvoice({...invoice, [name]:value, total})
-  }
- 
+ const handleInvoiceChange = e => {
+   const {name, value} = e.target
+
+   setInvoice({ ...invoice, [name]: value })
+ }
+
   return (
     <Form onSubmit={e => {
       // if there are missing values return early, but a warning would be nice.
       // if (!invoice.name || !invoice.email || !invoice.due || !invoice.total) return
       e.preventDefault();
-      props.addInvoice(invoice)
-      setInvoice(defaultFormState)
+      props.updateInvoice(invoice.id, invoice)
+      
     }}>
 
       <Field >
         <label htmlFor="name">Name</label>
-        <InputField placeholder="Name" type="text" name="name" value={invoice.name} onChange={handleChange}/>
+        <InputField placeholder="Name" type="text" name="name" value={name} onChange={handleInvoiceChange} />
       </Field>
 
       <Field>
         <label htmlFor="email">Email</label>
-        <InputField placeholder="Email" type="text" name="email" value={invoice.email} onChange={handleChange}/>
+        <InputField placeholder="Email" type="text" name="email" value={email} onChange={handleInvoiceChange} />
       </Field>
 
       <Field>
         <label htmlFor="due">Due </label>
-        <InputField type="date" name="due" value={invoice.due} onChange={handleChange} />
+        <InputField type="date" name="due" value={due} onChange={handleInvoiceChange} />
       </Field>
 
       <Field>
-        <InternalDiv>
-          <InternalLabel htmlFor="description">Description</InternalLabel>
-          <DescInput type="text" name="description" value={invoice.description} onChange={handleChange} />
-        </InternalDiv>
 
         <InternalDiv>
           <AmountLabel htmlFor="amount">Amount</AmountLabel>
-          <AmountInput type="number" name="amount" />
+          <AmountInput type="number" name="amount" value={amount} onChange={handleInvoiceChange} />
         </InternalDiv>
+
       </Field>
 
-      
-      <AdditionalInputs setTotal={setTotal} />
-
-      <div>
-       Total:  $ {total}
-      </div>
-
-      <div>
-        <button type="button" onClick={() => props.setIsFormDisplayed(false)}>Back</button>
-      </div>
-
-      <div>
-        <button type="submit">Create</button>
-      </div>
 
     </Form>
   )
 }
 
-export default NewInvoiceForm;
+export default EditInvoiceForm;
