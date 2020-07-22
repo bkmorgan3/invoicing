@@ -5,12 +5,12 @@ import InvoiceContainer from './InvoiceContainer';
 import NewInvoiceForm from './NewInvoiceForm';
 
 const Container = styled.div`
-  height: 90vh;
+  height: 100vh;
   margin: 10px 15px;
   font-family: sans-serif;
   font-size: 24px;
   max-width: 1300px;
-  border: 1px solid #555;
+  /* border: 1px solid #555; */
 `;
 
 const CreateInvoiceButton = styled.button`
@@ -37,10 +37,12 @@ const pendingInvoices = [
 const App = () => {
   const [invoices, setInvoices] = useState(pendingInvoices)
   const [isFormDisplayed, setIsFormDisplayed] = useState(false)
+  
 
   const addInvoice = (invoice) => {
     invoice.id = invoices.length + 1
-    setInvoices(...invoices, invoice)
+    setInvoices([...invoices, invoice])
+    setIsFormDisplayed(false)
   }
   
   return (
@@ -48,7 +50,7 @@ const App = () => {
       <Header />
       <CreateInvoiceButton onClick={() => setIsFormDisplayed(!isFormDisplayed) }> {isFormDisplayed ? 'Back' : 'Create Invoice'}</CreateInvoiceButton> 
         {isFormDisplayed ? 
-          <NewInvoiceForm setIsFormDisplayed={setIsFormDisplayed} addInvoice={addInvoice} /> :    
+          <NewInvoiceForm addInvoice={addInvoice} setIsFormDisplayed={setIsFormDisplayed} addInvoice={addInvoice} /> :    
           <InvoiceContainer invoices={invoices} />
           }
       </Container>

@@ -56,19 +56,29 @@ const AmountLabel = styled.label`
 `;
 
 const NewInvoiceForm = props => {
-  const defaultFormState = {id: null, name: '', email: '', due: '', description: '', amount: ''}
+  const defaultFormState = {id: null, name: '', email: '', due: '', }
   const [invoice, setInvoice] = useState(defaultFormState)
+
+  const handleChange = e => {
+    const {name, value} = e.target;
+
+    setInvoice({...invoice, [name]:value})
+  }
   return (
-    <Form>
+    <Form onSubmit={e => {
+      e.preventDefault();
+      props.addInvoice(invoice)
+      setInvoice(defaultFormState)
+    }}>
 
       <Field >
         <label htmlFor="name">Name</label>
-        <InputField placeholder="Name" type="text" name="name"/>
+        <InputField placeholder="Name" type="text" name="name"value={invoice.name} onChange={handleChange}/>
       </Field>
 
       <Field>
         <label htmlFor="email">Email</label>
-        <InputField placeholder="Email" type="text" name="email"/>
+        <InputField placeholder="Email" type="text" name="email" value={invoice.email} onChange={handleChange}/>
       </Field>
 
       <Field>
@@ -79,12 +89,12 @@ const NewInvoiceForm = props => {
       <Field>
         <InternalDiv>
           <InternalLabel htmlFor="description">Description</InternalLabel>
-          <DescInput type="text" name="description" />
+          <DescInput type="text" name="description" value={invoice.description} onChange={handleChange} />
         </InternalDiv>
 
         <InternalDiv>
           <AmountLabel htmlFor="amount">Amount</AmountLabel>
-          <AmountInput type="text" name="amount" />
+          <AmountInput type="number" name="amount" />
         </InternalDiv>
       </Field>
 
