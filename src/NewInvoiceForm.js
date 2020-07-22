@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
+import AdditionalInputs from './AdditionalInputs'
 import styled from 'styled-components';
 
+
+// STYLED ELEMENTS
 const Form = styled.form`
   height: 500px;
   margin-top: 20px;
@@ -13,12 +16,6 @@ const Field = styled.div`
   justify-content: space-around;
   margin-top: 0;
   margin-bottom: 1rem;
-`;
-const AdditionalField = styled.div`
-  display:flex;
-  justify-content: space-around;
-  /* margin-top: 0; */
-  /* margin-bottom: 1rem; */
 `;
 
 const InputField = styled.input`
@@ -46,9 +43,6 @@ const DescInput = styled.input`
 const InternalLabel = styled.label`
   margin-bottom: 20px;
 `;
-const AdditionalLabel = styled.label`
-  margin-bottom: 20px;
-`;
 
 const AmountInput = styled.input`
   width: 60px;
@@ -62,34 +56,19 @@ const AmountLabel = styled.label`
   margin-bottom: 20px;
 `;
 
+// THE COMPONENT
 const NewInvoiceForm = props => {
-  const defaultFormState = {id: null, name: '', email: '', due: '', total: ''}
+  const defaultFormState = {id: null, name: '', email: '', due: '', total: '', description: ''}
   const [invoice, setInvoice] = useState(defaultFormState)
   const [total, setTotal] = useState(0)
-  const [fields, setFields] = useState([])
 
   const handleChange = e => {
     const {name, value} = e.target;
     console.log(name, value)
   
-
     setInvoice({...invoice, [name]:value, total})
   }
-
-  const handleInputChange = (e,i) => {
-    console.log(e,i)
-    const values = [...fields]
-    values[i].value = e.target.value;
-    console.log(values)
-    setFields(values)
-  }
-
-  const handleAdd = () => {
-    const values = [...fields]
-    console.log(fields)
-    values.push(({value: null}))
-    setFields(values)
-  }
+ 
   return (
     <Form onSubmit={e => {
       // if there are missing values return early, but a warning would be nice.
@@ -126,29 +105,12 @@ const NewInvoiceForm = props => {
         </InternalDiv>
       </Field>
 
-      <div  >
-        {/* <label>Add More fields</label>  */}
-        <button type="button" onClick={() => handleAdd()}>More fields</button>
-       
-        {fields.map((field, i) => {
-          return (
-            <div key={`${i}-${field}`}>
-              <AdditionalField>
-                <InternalDiv>
-                  {/* <InternalLabel htmlFor="description">Description</InternalLabel> */}
-                  <DescInput placeholder="description" type="text" name={`description${i}`} value={invoice.description} onChange={handleInputChange} />
-                </InternalDiv>
-
-                <InternalDiv>
-                  {/* <AmountLabel htmlFor="amount">Amount</AmountLabel> */}
-                  <AmountInput placeholder="amount" type="number" name={`amount${i}`} />
-                </InternalDiv>
-              </AdditionalField>
-            </div>
-          )
-        })}
+      {/* <div>
+        <button type="button" onClick={() =>setShowInputs(true)}>More fields</button>    
       </div>
+      {showInputs ? <AdditionalInputs setShowInputs={setShowInputs} /> : ''} */}
       
+      <AdditionalInputs />
       <div>
        Total:  $ {total}
       </div>
