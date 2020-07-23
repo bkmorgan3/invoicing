@@ -38,15 +38,15 @@ const App = () => {
     {id: 3, name: 'Jim D', email: 'DJims@gmail.com', due: '2020-12-22', total: '44.00'}
   ]
 
-  const initialFormState = {id: null, name: '', email: '', due: '', total: ''}
-
+  
   const [invoices, setInvoices] = useState(pendingInvoices)
   const [isFormDisplayed, setIsFormDisplayed] = useState(false)
   const [editing, setEditing] = useState(false)
-  const [currentInvoice, setCurrentInvoice] = useState(initialFormState)
+  const [currentInvoice, setCurrentInvoice] = useState()
 
 // Edit an Invoice
   const editInvoice = invoice => {
+    console.log("editing", invoice)
     setEditing(true)
 
     setCurrentInvoice({id : invoice.id, name: invoice.name, email: invoice.email, due: invoice.due, total: invoice.total})
@@ -63,6 +63,7 @@ const App = () => {
   const addInvoice = (invoice) => {
     console.log("add", invoice)
     invoice.id = invoices[invoices.length-1].id + 1;
+    
     setInvoices([...invoices, invoice])
     setIsFormDisplayed(false)
   }
@@ -76,15 +77,24 @@ const App = () => {
   return (
     <Container>
       <Header />
-      <CreateInvoiceButton onClick={() => setIsFormDisplayed(!isFormDisplayed) }> {isFormDisplayed ? 'Back' : 'Create Invoice'}</CreateInvoiceButton> 
+      <CreateInvoiceButton 
+        onClick={() => setIsFormDisplayed(!isFormDisplayed) }> 
+        {isFormDisplayed ? 'Back' : 'Create Invoice'}
+      </CreateInvoiceButton> 
        
-        {isFormDisplayed ? 
-          <NewInvoiceForm addInvoice={addInvoice} setIsFormDisplayed={setIsFormDisplayed} /> :    
-          <InvoiceContainer currentInvoice={currentInvoice} editing={editing} editInvoice={editInvoice} invoices={invoices} />
+        { isFormDisplayed ? 
+          <NewInvoiceForm 
+            addInvoice={addInvoice} 
+            setIsFormDisplayed={setIsFormDisplayed} 
+          />  :    
+          <InvoiceContainer 
+            deleteInvoice={deleteInvoice} 
+            currentInvoice={currentInvoice} 
+            editing={editing} editInvoice={editInvoice} 
+            invoices={invoices} 
+            setEditing={setEditing}
+          />
           }
-          {editing ? 
-        <EditInvoiceForm updateInvoice={updateInvoice} deleteInvoice={deleteInvoice} currentInvoice={currentInvoice} setEditing={setEditing} /> :
-        ''}
       </Container>
     )
   

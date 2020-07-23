@@ -42,7 +42,6 @@ const AdditionalInputs = (props) => {
   const [inputs, setInputs] = useState([])
   /* PASSED DOWN SET TOTAL TO GET SUM OF EACH INPUT FILED WITH AMOUNT.
   HAVENT WORKED ON IT MUCH */
-  const {setTotal} = props
 
 
   const handleChange = (i, event) => {

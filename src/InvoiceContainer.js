@@ -2,7 +2,9 @@ import React from 'react';
 import InvoiceItem from './InvoiceItem';
 // Add PropTypes
 
-const InvoiceContainer = (props) => (
+const InvoiceContainer = (props) => {
+  console.log("container",props)
+  return (
   <div>
     {props.invoices.length > 0 ? (
       props.invoices.map(i => (
@@ -16,6 +18,8 @@ const InvoiceContainer = (props) => (
           editInvoice={props.editInvoice}
           editing={props.editing}
           currentInvoice={props.currentInvoice}
+          deleteInvoice={props.deleteInvoice}
+          setEditing={props.setEditing}
         />
       ))
     ) : (
@@ -24,7 +28,7 @@ const InvoiceContainer = (props) => (
         </div>
     )}
   </div>
-  
-)
+  )
+    }
 
 export default InvoiceContainer
