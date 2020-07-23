@@ -57,11 +57,10 @@ const AmountLabel = styled.label`
 
 // THE COMPONENT
 const EditInvoiceForm = props => {
-  console.log("props in ditform", props)
   const {name, email, due, id, amount} = props.currentInvoice
 
   const defaultFormState = { id: null, name: '', email: '', due: '', total: '', description: '' }
-  const [invoice, setInvoice] = useState(defaultFormState)
+  const [invoice, setInvoice] = useState(props.currentInvoice)
   const [total, setTotal] = useState(0)
 
  const handleInvoiceChange = e => {
@@ -76,6 +75,7 @@ const EditInvoiceForm = props => {
       // if (!invoice.name || !invoice.email || !invoice.due || !invoice.total) return
       e.preventDefault();
       props.updateInvoice(invoice.id, invoice)
+      setInvoice(defaultFormState)
       
     }}>
 
@@ -103,7 +103,12 @@ const EditInvoiceForm = props => {
 
       </Field>
 
-
+    <button onClick={() => props.setEditing(false)} type="button">Back</button>
+    <button onClick={() => {
+        props.deleteInvoice(id) 
+        props.setEditing(false)
+    }} type="button">Delete</button>
+    <button type="submit">Save</button>
     </Form>
   )
 }

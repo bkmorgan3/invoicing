@@ -64,7 +64,6 @@ const NewInvoiceForm = props => {
 
   const handleChange = e => {
     const {name, value} = e.target;
-    console.log(name, value)
   
     setInvoice({...invoice, [name]:value, total})
   }

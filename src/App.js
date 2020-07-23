@@ -45,23 +45,31 @@ const App = () => {
   const [editing, setEditing] = useState(false)
   const [currentInvoice, setCurrentInvoice] = useState(initialFormState)
 
+// Edit an Invoice
   const editInvoice = invoice => {
-    console.log("editing invoice",invoice)
     setEditing(true)
 
     setCurrentInvoice({id: invoice.id, name: invoice.name, email: invoice.email, due: invoice.due, amount: invoice.total})
   }
-  
+
+  // Update an invoice
   const updateInvoice = (id, updatedInvoice) => {
     setEditing(false)
 
     setInvoices(invoices.map(invoice => invoice.id === id ? updatedInvoice : invoice))
   }
 
+  // Add New Invoice
   const addInvoice = (invoice) => {
-    invoice.id = invoices.length + 1
+    invoice.id = invoices[invoices.length-1] + 1;
     setInvoices([...invoices, invoice])
     setIsFormDisplayed(false)
+  }
+
+  // Delete an Invoice
+  const deleteInvoice = id => {
+    console.log('deleting', id)
+    setInvoices(invoices.filter(i => i.id !== id) )
   }
   
   return (
@@ -74,7 +82,7 @@ const App = () => {
           <InvoiceContainer editInvoice={editInvoice} invoices={invoices} />
           }
           {editing ? 
-        <EditInvoiceForm currentInvoice={currentInvoice} setEditing={setEditing} /> :
+        <EditInvoiceForm updateInvoice={updateInvoice} deleteInvoice={deleteInvoice} currentInvoice={currentInvoice} setEditing={setEditing} /> :
         ''}
       </Container>
     )
