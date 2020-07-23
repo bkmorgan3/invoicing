@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import AdditionalInputs from './AdditionalInputs'
+import AdditionalInputs from '../AdditionalInputs'
 import styled from 'styled-components';
 
 
@@ -58,7 +58,7 @@ const AmountLabel = styled.label`
 
 // THE COMPONENT
 const NewInvoiceForm = props => {
-  const defaultFormState = {id: null, name: '', email: '', due: '', total: '', description: ''}
+  const defaultFormState = {id: null, name: '', email: '', due: '', total: '', description: '', amount:''}
   const [invoice, setInvoice] = useState(defaultFormState)
   const [total, setTotal] = useState(0)
 
@@ -100,7 +100,7 @@ const NewInvoiceForm = props => {
 
         <InternalDiv>
           <AmountLabel htmlFor="amount">Amount</AmountLabel>
-          <AmountInput type="number" name="amount" />
+          <AmountInput type="number" name="amount" value={invoice.amount} onChange={handleChange} />
         </InternalDiv>
       </Field>
 

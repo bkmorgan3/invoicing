@@ -5,6 +5,7 @@ const Invoice = styled.div`
   border: 1px solid black;
   margin: 15px;
   /* padding: 30px; */
+  
 `;
 
 const EditButton = styled.button`
@@ -19,14 +20,17 @@ const EditButton = styled.button`
 `;
 
 const InvoiceItem = (props) => {
-  const {name, email, due, total, editInvoice} = props
+  const {id,name, email, due, total, editInvoice, editing, currentInvoice} = props
+  console.log("props",props)
   return (
     <Invoice>
-      <p>Name: {name}</p>
-      <p>Email: {email}</p>
-      <p>Due: {due}</p>
-      <span>Total: $ {total}</span>
+      {/* Conditional render with editing prop */}
+      <div>Name: {editing && currentInvoice.name ===  name? <input value={name} />  : name } </div>
+      <p>Email: {editing && currentInvoice.email === email ? <input value={email} /> : email}</p>
+      <p>Due: {editing && currentInvoice.due === due ? <input type="date" value={due} /> : due}</p>
+      <span>Total: $ { editing && currentInvoice.total === total ? <input value={total} /> : total}</span>
     <EditButton onClick={() => editInvoice(props) }>Edit</EditButton>
+    {editing && currentInvoice.id === id ? <div><button>Update</button><button>Delete</button></div> : ''}
     </Invoice>
     )
 }

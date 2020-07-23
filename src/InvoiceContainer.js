@@ -14,6 +14,8 @@ const InvoiceContainer = (props) => (
           total={i.total}
           id={i.id}
           editInvoice={props.editInvoice}
+          editing={props.editing}
+          currentInvoice={props.currentInvoice}
         />
       ))
     ) : (

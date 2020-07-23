@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import Header from './Header';
 import InvoiceContainer from './InvoiceContainer';
-import NewInvoiceForm from './NewInvoiceForm';
-import EditInvoiceForm from './EditInvoiceForm'
+import NewInvoiceForm from './forms/NewInvoiceForm';
+import EditInvoiceForm from './forms/EditInvoiceForm'
 
 const Container = styled.div`
   height: 100vh;
@@ -49,7 +49,7 @@ const App = () => {
   const editInvoice = invoice => {
     setEditing(true)
 
-    setCurrentInvoice({id: invoice.id, name: invoice.name, email: invoice.email, due: invoice.due, amount: invoice.total})
+    setCurrentInvoice({id : invoice.id, name: invoice.name, email: invoice.email, due: invoice.due, total: invoice.total})
   }
 
   // Update an invoice
@@ -61,7 +61,8 @@ const App = () => {
 
   // Add New Invoice
   const addInvoice = (invoice) => {
-    invoice.id = invoices[invoices.length-1] + 1;
+    console.log("add", invoice)
+    invoice.id = invoices[invoices.length-1].id + 1;
     setInvoices([...invoices, invoice])
     setIsFormDisplayed(false)
   }
@@ -79,7 +80,7 @@ const App = () => {
        
         {isFormDisplayed ? 
           <NewInvoiceForm addInvoice={addInvoice} setIsFormDisplayed={setIsFormDisplayed} /> :    
-          <InvoiceContainer editInvoice={editInvoice} invoices={invoices} />
+          <InvoiceContainer currentInvoice={currentInvoice} editing={editing} editInvoice={editInvoice} invoices={invoices} />
           }
           {editing ? 
         <EditInvoiceForm updateInvoice={updateInvoice} deleteInvoice={deleteInvoice} currentInvoice={currentInvoice} setEditing={setEditing} /> :
