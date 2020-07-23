@@ -63,6 +63,11 @@ const EditInvoiceForm = props => {
   const [invoice, setInvoice] = useState(props.currentInvoice)
   const [total, setTotal] = useState(0)
 
+  /* I copy/pasted the NewInvoiceForm 
+  planning to have the same form render but
+  with pre-filled inputs based on state data.
+  */
+
  const handleInvoiceChange = e => {
    const {name, value} = e.target
 

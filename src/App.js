@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Header from './Header';
 import InvoiceContainer from './InvoiceContainer';
 import NewInvoiceForm from './forms/NewInvoiceForm';
-import EditInvoiceForm from './forms/EditInvoiceForm'
 
 const Container = styled.div`
   height: 100vh;
@@ -42,35 +41,34 @@ const App = () => {
   const [invoices, setInvoices] = useState(pendingInvoices)
   const [isFormDisplayed, setIsFormDisplayed] = useState(false)
   const [editing, setEditing] = useState(false)
-  const [currentInvoice, setCurrentInvoice] = useState()
+  const [currentInvoice, setCurrentInvoice] = useState(null)
+  
 
 // Edit an Invoice
-  const editInvoice = invoice => {
-    console.log("editing", invoice)
+  const editInvoice = id => {
+    console.log("editing", id)
     setEditing(true)
-
-    setCurrentInvoice({id : invoice.id, name: invoice.name, email: invoice.email, due: invoice.due, total: invoice.total})
+    console.log(invoices)
+    setCurrentInvoice(invoices.filter(invoice => invoice.id === id)[0])
   }
 
   // Update an invoice
   const updateInvoice = (id, updatedInvoice) => {
     setEditing(false)
 
-    setInvoices(invoices.map(invoice => invoice.id === id ? updatedInvoice : invoice))
+    setInvoices(oldInvoices => oldInvoices.map(invoice => invoice.id === id ? updatedInvoice : invoice))
   }
 
   // Add New Invoice
   const addInvoice = (invoice) => {
-    console.log("add", invoice)
     invoice.id = invoices[invoices.length-1].id + 1;
-    
+
     setInvoices([...invoices, invoice])
     setIsFormDisplayed(false)
   }
 
   // Delete an Invoice
   const deleteInvoice = id => {
-    console.log('deleting', id)
     setInvoices(invoices.filter(i => i.id !== id) )
   }
   
@@ -88,13 +86,16 @@ const App = () => {
             setIsFormDisplayed={setIsFormDisplayed} 
           />  :    
           <InvoiceContainer 
+          editing={editing}
             deleteInvoice={deleteInvoice} 
             currentInvoice={currentInvoice} 
-            editing={editing} editInvoice={editInvoice} 
+            editInvoice={editInvoice} 
             invoices={invoices} 
             setEditing={setEditing}
+            updateInvoice={updateInvoice}
           />
           }
+          
       </Container>
     )
   

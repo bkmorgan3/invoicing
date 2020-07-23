@@ -43,9 +43,10 @@ const AdditionalInputs = (props) => {
   /* PASSED DOWN SET TOTAL TO GET SUM OF EACH INPUT FILED WITH AMOUNT.
   HAVENT WORKED ON IT MUCH */
 
-
+  
   const handleChange = (i, event) => {
     const values = [...inputs]
+    console.log("vals",values)
     values[i][event.target.name] = event.target.value;
     console.log(values[i])
     
@@ -63,6 +64,7 @@ const AdditionalInputs = (props) => {
     values.splice(i, 1)
     setInputs(values)
   } 
+
   return (
     <div>
       <button type="button" onClick={() => addInput()}> + </button>

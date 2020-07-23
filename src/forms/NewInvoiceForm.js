@@ -29,7 +29,6 @@ const InternalDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 50px;
-  /* border: 1px solid green; */
   width: 30%;
 `;
 
@@ -64,10 +63,12 @@ const NewInvoiceForm = props => {
 
   const handleChange = e => {
     const {name, value} = e.target;
-  
-    setInvoice({...invoice, [name]:value, total})
+    console.log("thins",name,value)
+    
+    setInvoice({...invoice, [name]:value, total: invoice.amount})
   }
- 
+  
+  
   return (
     <Form onSubmit={e => {
       // if there are missing values return early, but a warning would be nice.
@@ -105,12 +106,12 @@ const NewInvoiceForm = props => {
       </Field>
 
       
-      <AdditionalInputs setTotal={setTotal} />
+      <AdditionalInputs total={total} setTotal={setTotal} />
 
       <div>
-       Total:  $ {total}
+       Total:  $ {total} 
       </div>
-
+  
       <div>
         <button type="button" onClick={() => props.setIsFormDisplayed(false)}>Back</button>
       </div>
